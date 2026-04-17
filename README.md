@@ -1,3 +1,33 @@
-# Corporate-Research
+# 🏢 Corporate Research — 日本求职企业研究库
 
-This repository is dedicated to corporate research and related studies.
+> 面向在日理工硕士的求职研究资料库：公司分析 · 新卒招聘 · 行业比较 · 小红书图文
+
+## 📌 研究者背景
+
+- **学校**：東京科学大学（Science Tokyo，原東工大）工学硕士 M1
+- **研究方向**：电气电子 / 半导体 / 磁性材料 / 自旋电子学
+- **求职目标**：日本新卒 · 理工科岗位优先（研发、技术开发、器件/工艺、应用工程等）
+- **语言能力**：中文 · 日语 · 英语
+
+## 📁 项目结构
+
+```
+Corporate-Research/
+├── companies/          # 各公司深度研究
+│   └── keyence/        # 每家公司独立文件夹
+├── comparisons/        # 横向对比分析
+├── templates/          # 研究模板（可复用 prompt）
+├── trackers/           # 求职进度追踪
+├── datasets/           # 结构化数据表
+└── workflow/           # 研究流程 & Prompt 库
+```
+
+## 📊 已完成研究
+
+| 公司 | 状态 | 行业 | 推荐度 |
+|------|------|------|--------|
+| [Keyence / キーエンス](companies/keyence/) | ✅ 完成 | FA / 精密设备 | ⭐ 强推 |
+
+## 🔄 更新日志
+
+- 2026-04-17: 项目初始化，完成 Keyence 企业研究

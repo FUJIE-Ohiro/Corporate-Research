@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keyence 小红书图文 - 剩余页面</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a2e; font-family: 'Noto Sans SC', sans-serif; display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 40px; }
+  .page {
+    width: 1080px; height: 1440px;
+    background: linear-gradient(135deg, #0a0a23 0%, #16213e 50%, #0a0a23 100%);
+    border-radius: 24px; padding: 60px;
+    display: flex; flex-direction: column;
+    color: #fff; position: relative; overflow: hidden;
+    page-break-after: always;
+  }
+  .page::before {
+    content: ''; position: absolute; top: -200px; right: -200px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%);
+  }
+  .page-num { position: absolute; top: 40px; right: 60px; color: rgba(212,175,55,0.6); font-size: 28px; font-weight: 700; }
+  .title { font-size: 52px; font-weight: 900; color: #d4af37; margin-bottom: 16px; line-height: 1.3; }
+  .subtitle { font-size: 26px; color: rgba(255,255,255,0.7); margin-bottom: 40px; }
+  .content { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+  .card {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(212,175,55,0.2);
+    border-radius: 16px; padding: 28px 32px; display: flex; align-items: flex-start; gap: 16px;
+  }
+  .card-icon { font-size: 32px; flex-shrink: 0; }
+  .card-text { font-size: 26px; line-height: 1.5; }
+  .card-text strong { color: #d4af37; }
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(212,175,55,0.05));
+    border: 2px solid rgba(212,175,55,0.4); border-radius: 16px;
+    padding: 28px 32px; text-align: center; font-size: 28px; font-weight: 700;
+    color: #d4af37; margin-top: auto;
+  }
+  .warn-box {
+    background: linear-gradient(135deg, rgba(255,69,58,0.15), rgba(255,69,58,0.05));
+    border: 2px solid rgba(255,69,58,0.4); border-radius: 16px;
+    padding: 28px 32px; font-size: 26px; color: #ff6b6b;
+  }
+  .green-box {
+    background: linear-gradient(135deg, rgba(52,199,89,0.15), rgba(52,199,89,0.05));
+    border: 2px solid rgba(52,199,89,0.4); border-radius: 16px;
+    padding: 28px 32px; font-size: 26px; color: #34c759;
+  }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .col {
+    border-radius: 16px; padding: 32px;
+  }
+  .col-red { background: rgba(255,69,58,0.08); border: 1px solid rgba(255,69,58,0.2); }
+  .col-green { background: rgba(52,199,89,0.08); border: 1px solid rgba(52,199,89,0.2); }
+  .col h3 { font-size: 32px; margin-bottom: 20px; }
+  .col ul { list-style: none; }
+  .col ul li { font-size: 24px; line-height: 1.8; }
+  .stair { display: flex; flex-direction: column; gap: 12px; }
+  .stair-step {
+    display: flex; align-items: center; gap: 16px;
+    padding: 20px 28px; border-radius: 12px; font-size: 26px; font-weight: 600;
+  }
+  .stair-step .label { flex: 1; }
+  .stair-step .value { color: #d4af37; font-size: 30px; font-weight: 900; }
+  .score-table { width: 100%; border-collapse: separate; border-spacing: 0 12px; }
+  .score-table td { padding: 16px 24px; font-size: 24px; }
+  .score-table td:first-child { font-weight: 700; width: 140px; }
+  .score-table td:nth-child(2) { color: #d4af37; font-size: 28px; width: 200px; }
+  .score-row { background: rgba(255,255,255,0.04); border-radius: 12px; }
+  .big-text { font-size: 64px; font-weight: 900; color: #d4af37; text-align: center; margin: 20px 0; }
+  .action-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 20px 28px; border-radius: 12px; font-size: 25px; line-height: 1.5;
+  }
+  .action-red { background: rgba(255,69,58,0.1); border-left: 4px solid #ff453a; }
+  .action-yellow { background: rgba(255,214,10,0.1); border-left: 4px solid #ffd60a; }
+  .action-green { background: rgba(52,199,89,0.1); border-left: 4px solid #34c759; }
+  .final-card {
+    background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(212,175,55,0.05));
+    border: 2px solid #d4af37; border-radius: 20px;
+    padding: 40px; text-align: center;
+  }
+  .final-card .rating { font-size: 72px; font-weight: 900; color: #d4af37; }
+  .footer { font-size: 20px; color: rgba(255,255,255,0.4); text-align: center; margin-top: auto; padding-top: 20px; }
+</style>
+</head>
+<body>
+
+<!-- PAGE 10 -->
+<div class="page">
+  <span class="page-num">10/18</span>
+  <div class="title">在哪工作？怎么晋升？</div>
+  <div class="subtitle">商品開発在大阪，クラス制晋升不看年龄</div>
+  <div class="content">
+    <div class="card"><span class="card-icon">📍</span><div class="card-text"><strong>商品開発</strong> → 大阪本社为主</div></div>
+    <div class="card"><span class="card-icon">📍</span><div class="card-text"><strong>营业/CE</strong> → 全国转勤+海外赴任可能</div></div>
+    <div class="card"><span class="card-icon">🌍</span><div class="card-text"><strong>46国据点</strong>，数年后可申请海外赴任</div></div>
+    <div style="color:#d4af37;font-size:30px;font-weight:700;margin:16px 0;">晋升路径：クラス制</div>
+    <div class="stair">
+      <div class="stair-step" style="background:rgba(212,175,55,0.05);"><span class="label">Class 2 — 新卒入社</span><span class="value">~800万</span></div>
+      <div class="stair-step" style="background:rgba(212,175,55,0.1);"><span class="label">Class 3-4 — 2~7年目</span><span class="value">~1,300万</span></div>
+      <div class="stair-step" style="background:rgba(212,175,55,0.18);"><span class="label">Class 5-6 — リーダー級</span><span class="value">~2,000万</span></div>
+      <div class="stair-step" style="background:rgba(212,175,55,0.28);"><span class="label">Class 7-8 — 管理職</span><span class="value">2,500万+</span></div>
+    </div>
+    <div class="highlight-box">能力决定速度，不看年龄和资历</div>
+  </div>
+</div>
+
+<!-- PAGE 11 -->
+<div class="page">
+  <span class="page-num">11/18</span>
+  <div class="title">工作强度到底怎么样？</div>
+  <div class="subtitle">高密度工作 + 下班完全切断 = メリハリ型</div>
+  <div class="content">
+    <div class="two-col">
+      <div class="col col-red">
+        <h3 style="color:#ff6b6b;">在社中 🔥</h3>
+        <ul>
+          <li>⚡ 效率要求极高</li>
+          <li>⚡ 节奏快、成果导向</li>
+          <li>⚡ 高目标、高压力</li>
+          <li>⚡ 密集PDCA循环</li>
+          <li>⚡ 用最小人力创造最大价值</li>
+        </ul>
+      </div>
+      <div class="col col-green">
+        <h3 style="color:#34c759;">下班后 🧘</h3>
+        <ul>
+          <li>✅ 禁止带工作回家</li>
+          <li>✅ 禁止休日联络</li>
+          <li>✅ 深夜加班需上司审批</li>
+          <li>✅ GW/暑/寒假各8-9连休</li>
+          <li>✅ 年间休日 128天</li>
+        </ul>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:32px;">
+      不是"无限加班"<br>而是"有限时间内全力输出，下班完全切断"
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 13 -->
+<div class="page">
+  <span class="page-num">13/18</span>
+  <div class="title">Keyence有什么坑？</div>
+  <div class="subtitle">高薪的代价是高强度+超高倍率</div>
+  <div class="content">
+    <div class="warn-box" style="margin-bottom:12px;">
+      <div style="font-size:28px;font-weight:700;margin-bottom:12px;">⚠️ 选考倍率 70-200倍</div>
+      即使背景很好也可能在适性検査或面试被筛掉
+    </div>
+    <div class="card"><span class="card-icon">⚠️</span><div class="card-text"><strong>日语门槛高</strong> — 面试全日语深掘り，留学生挑战极大</div></div>
+    <div class="card"><span class="card-icon">⚠️</span><div class="card-text"><strong>工作密度极大</strong> — 不是"轻松拿高薪"的公司</div></div>
+    <div class="card"><span class="card-icon">⚠️</span><div class="card-text"><strong>纯成果主义</strong> — 抗压能力弱会很痛苦</div></div>
+    <div class="card"><span class="card-icon">⚠️</span><div class="card-text"><strong>商品開発多在大阪</strong> — 不在东京生活圈</div></div>
+    <div class="highlight-box" style="border-color:rgba(255,69,58,0.4);color:#ff6b6b;background:rgba(255,69,58,0.08);">
+      风险虽大，但回报更大 — 关键是你准备好了吗？
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 14 -->
+<div class="page">
+  <span class="page-num">14/18</span>
+  <div class="title">✅ 这些人一定要投</div>
+  <div class="subtitle">如果你是以下类型，Keyence就是你的菜</div>
+  <div class="content">
+    <div class="green-box" style="font-size:28px;line-height:2;"><strong>
+      ✅ 想在30岁前年收过千万的人<br>
+      ✅ 喜欢"用技术解决实际问题"的理工科生<br>
+      ✅ 享受高节奏、高目标、被push的感觉<br>
+      ✅ 希望第一份工作就建立极高市场价值<br>
+      ✅ 不确定长期做什么，但想先积累最强能力
+    </strong></div>
+    <div class="highlight-box" style="margin-top:32px;">
+      即使最终不去Keyence<br>选考过程本身就是最好的面试训练
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 15 -->
+<div class="page">
+  <span class="page-num">15/18</span>
+  <div class="title">❌ 这些人慎重考虑</div>
+  <div class="subtitle">不是不好，而是可能不适合你</div>
+  <div class="content">
+    <div class="warn-box" style="font-size:28px;line-height:2;"><strong>
+      ❌ 追求超级WLB、不想有太大压力<br>
+      ❌ 不喜欢被量化考核、成果主义<br>
+      ❌ 日语还没到可以流畅辩论的水平<br>
+      ❌ 想深耕纯学术研究、不想碰商业<br>
+      ❌ 不愿意接受大阪配属
+    </strong></div>
+    <div class="highlight-box" style="margin-top:32px;border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);background:rgba(255,255,255,0.04);">
+      如果以上中了3条以上<br>建议优先考虑 OMRON / Sony / 研究所 等选项
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 16 -->
+<div class="page">
+  <span class="page-num">16/18</span>
+  <div class="title">整体评价打分</div>
+  <div class="subtitle">综合评分 4.2/5 — 强烈推荐理工硕士申请</div>
+  <div class="content">
+    <table class="score-table">
+      <tr class="score-row"><td>薪资</td><td>⭐⭐⭐⭐⭐</td><td>制造业天花板，无争议</td></tr>
+      <tr class="score-row"><td>成长</td><td>⭐⭐⭐⭐⭐</td><td>公认日本最快的成长环境</td></tr>
+      <tr class="score-row"><td>长期发展</td><td>⭐⭐⭐⭐</td><td>OB品牌价值极大</td></tr>
+      <tr class="score-row"><td>兴趣匹配</td><td>⭐⭐⭐⭐</td><td>FA/传感器与电子背景强相关</td></tr>
+      <tr class="score-row"><td>录取难度</td><td>⭐⭐⭐</td><td>倍率极高是最大变数</td></tr>
+    </table>
+    <div class="final-card" style="margin-top:24px;">
+      <div style="font-size:28px;color:rgba(255,255,255,0.6);margin-bottom:8px;">综合评分</div>
+      <div class="rating">4.2 / 5</div>
+      <div style="font-size:28px;color:#d4af37;margin-top:8px;">⭐ 强推</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 17 -->
+<div class="page">
+  <span class="page-num">17/18</span>
+  <div class="title">想拿Keyence，现在该做什么？</div>
+  <div class="subtitle">第一步：马上去官网注册マイページ</div>
+  <div class="content">
+    <div class="action-item action-red"><span>🔴</span><div><strong>马上注册</strong> — 去 keyence-jobs.jp 注册マイページ</div></div>
+    <div class="action-item action-red"><span>🔴</span><div><strong>报名インターン</strong> — M1暑假/冬季必须参加，早期ルート最有利</div></div>
+    <div class="action-item action-yellow"><span>🟡</span><div><strong>日语面试训练</strong> — 练习"为什么"深掘り，确保能流畅应答</div></div>
+    <div class="action-item action-yellow"><span>🟡</span><div><strong>自我分析</strong> — 整理3-5个"自己主动行动并取得成果"的故事</div></div>
+    <div class="action-item action-green"><span>🟢</span><div><strong>了解产品</strong> — 研究室有没有Keyence设备？亲身体验是最强面试素材</div></div>
+    <div class="action-item action-green"><span>🟢</span><div><strong>SPI对策</strong> — 适性検査对策，注意性格测试的一贯性</div></div>
+    <div class="highlight-box" style="margin-top:auto;">
+      时间线：M1夏インターン → 秋冬早期选考 → M2春内定
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 18 -->
+<div class="page">
+  <span class="page-num">18/18</span>
+  <div class="title">一句话总结</div>
+  <div class="content" style="justify-content:center;align-items:center;text-align:center;">
+    <div class="final-card" style="padding:60px;">
+      <div style="font-size:32px;color:rgba(255,255,255,0.6);margin-bottom:24px;">推荐度</div>
+      <div class="rating">⭐ 强推</div>
+      <div style="font-size:30px;color:#fff;margin-top:32px;line-height:1.8;">
+        Keyence是日本求职市场上<br>
+        <span style="color:#d4af37;font-weight:900;">"风险高但回报更高"</span><br>
+        的顶级选择
+      </div>
+    </div>
+    <div style="margin-top:48px;font-size:28px;line-height:2;color:rgba(255,255,255,0.8);">
+      🏆 最佳岗位：商品開発職<br>
+      🎯 最大门槛：日语面试 + 超高倍率<br>
+      📌 准备好了就全力冲，没准备好也值得试
+    </div>
+    <div style="margin-top:48px;font-size:24px;color:rgba(212,175,55,0.6);">
+      收藏这篇 · 关注看更多企业拆解 · 评论区聊聊你的选择👇
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>Kioxia 小红书全18页</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #111;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 60px; padding: 60px 20px;
+    font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  }
+
+  /* ====== 每页容器 ====== */
+  .page {
+    width: 1080px; height: 1080px;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+    color: #fff;
+  }
+
+  /* 使用 Kioxia 风格：偏向暗银色与一点青蓝色调的深色科技风 */
+  .bg-tech {
+    background: linear-gradient(145deg, #0f1115 0%, #1a1f2b 40%, #151b26 70%, #0c0e12 100%);
+  }
+  .bg-tech::before {
+    content: ''; position: absolute;
+    top: -120px; right: -120px;
+    width: 400px; height: 400px; border-radius: 50%;
+    /* 银白金属光芒 */
+    background: radial-gradient(circle, rgba(200,210,220,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .bg-tech::after {
+    content: ''; position: absolute;
+    bottom: -80px; left: -80px;
+    width: 300px; height: 300px; border-radius: 50%;
+    /* 偏青蓝的光晕 */
+    background: radial-gradient(circle, rgba(0,180,255,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* ====== 页码 ====== */
+  .page-num {
+    position: absolute; top: 36px; right: 44px;
+    font-size: 26px; font-weight: 700;
+    color: rgba(200,210,220,0.55);
+    z-index: 10;
+  }
+
+  /* ====== 内容区 ====== */
+  .inner {
+    position: relative; z-index: 5;
+    padding: 52px 56px 48px;
+    flex: 1; display: flex; flex-direction: column;
+  }
+
+  /* ====== 标题颜色改为偏银蓝/浅灰金 ====== */
+  .title {
+    font-size: 48px; font-weight: 900;
+    color: #8cd6ff; line-height: 1.25;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    font-size: 22px; font-weight: 400;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 32px;
+  }
+
+  /* ====== 卡片 ====== */
+  .card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(140,214,255,0.2);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 14px;
+    display: flex; align-items: flex-start; gap: 14px;
+    font-size: 23px; line-height: 1.5;
+  }
+  .card .icon {
+    flex-shrink: 0; width: 38px; height: 38px;
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 900; color: #fff;
+  }
+  .card .text { flex: 1; }
+  .card .text strong { color: #8cd6ff; }
+
+  /* 图标颜色 */
+  .icon-red    { background: rgba(255,69,58,0.25); color: #ff453a !important; }
+  .icon-blue   { background: rgba(50,130,246,0.25); color: #3282f6 !important; }
+  .icon-green  { background: rgba(52,199,89,0.25); color: #34c759 !important; }
+  .icon-silver { background: rgba(200,210,220,0.25); color: #e1e8ef !important; }
+  .icon-cyan   { background: rgba(140,214,255,0.25); color: #8cd6ff !important; }
+  .icon-warn   { background: rgba(255,69,58,0.2); color: #ff6b6b !important; }
+
+  /* ====== 高亮框 ====== */
+  .highlight {
+    background: linear-gradient(135deg, rgba(140,214,255,0.15), rgba(140,214,255,0.04));
+    border: 1.5px solid rgba(140,214,255,0.35);
+    border-radius: 14px; padding: 22px 28px;
+    text-align: center; font-size: 24px; font-weight: 700;
+    color: #8cd6ff;
+  }
+  .highlight-warn {
+    background: linear-gradient(135deg, rgba(255,69,58,0.1), rgba(255,69,58,0.03));
+    border: 1.5px solid rgba(255,69,58,0.35);
+    color: #ff6b6b;
+  }
+  .highlight-green {background: linear-gradient(135deg, rgba(52,199,89,0.1), rgba(52,199,89,0.03));border: 1.5px solid rgba(52,199,89,0.35);color: #34c759;}
+
+  /* ====== 两列 ====== */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .col { border-radius: 14px; padding: 24px; }
+  .col h3 { font-size: 26px; margin-bottom: 16px; font-weight: 700; }
+  .col ul { list-style: none; }
+  .col ul li { font-size: 21px; line-height: 1.9; }
+  .col-red { background: rgba(255,69,58,0.06); border: 1px solid rgba(255,69,58,0.2); }
+  .col-green { background: rgba(52,199,89,0.06); border: 1px solid rgba(52,199,89,0.2); }
+
+  /* ====== 表格 ====== */
+  .score-table { width: 100%; border-spacing: 0 10px; border-collapse: separate; }
+  .score-table tr { background: rgba(255,255,255,0.03); }
+  .score-table td { padding: 14px 18px; font-size: 21px; }
+  .score-table td:first-child { font-weight: 700; border-radius: 10px 0 0 10px; width: 110px; }
+  .score-table td:nth-child(2) { color: #8cd6ff; font-size: 23px; width: 170px; }
+  .score-table td:last-child { border-radius: 0 10px 10px 0; color: rgba(255,255,255,0.7); }
+
+  /* ====== 封面大数 ====== */
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 12px; }
+  .stat-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(140,214,255,0.25);
+    border-radius: 14px; padding: 24px 20px; text-align: center;
+  }
+  .stat-card .num { font-size: 36px; font-weight: 900; color: #8cd6ff; }
+  .stat-card .label { font-size: 18px; color: rgba(255,255,255,0.6); margin-top: 6px; }
+
+  /* ====== 行动项 ====== */
+  .action { padding: 16px 22px; border-radius: 12px; font-size: 22px; margin-bottom: 10px; line-height: 1.5; }
+  .action-r { background: rgba(255,69,58,0.08); border-left: 4px solid #ff453a; }
+  .action-y { background: rgba(255,214,10,0.08); border-left: 4px solid #ffd60a; }
+  .action-g { background: rgba(52,199,89,0.08); border-left: 4px solid #34c759; }
+
+  .final-box {
+    background: linear-gradient(135deg, rgba(140,214,255,0.15), rgba(140,214,255,0.03));
+    border: 2px solid #8cd6ff; border-radius: 18px;
+    padding: 36px; text-align: center;
+  }
+  .final-box .rating { font-size: 56px; font-weight: 900; color: #8cd6ff; }
+
+  .text-muted { color: rgba(255,255,255,0.45); }
+  .mt-auto { margin-top: auto; }
+</style>
+</head>
+<body>
+
+<!-- P01 封面 -->
+<div class="page bg-tech">
+  <span class="page-num">01/18</span>
+  <div class="inner" style="justify-content:center; align-items:center; text-align:center;">
+    <div style="font-size:20px; color:rgba(255,255,255,0.4); letter-spacing:6px; margin-bottom:24px;">KIOXIA / キオクシア</div>
+    <div class="title" style="font-size:52px; text-align:center;">起薪暴涨：满血复活的巨资坑</div>
+    <div style="font-size:28px; color:#fff; margin:8px 0 36px;">狂野薪资刺客 • 深度测评</div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="num">36.4万円</div><div class="label">26届修士起薪 (震惊业界)</div></div>
+      <div class="stat-card"><div class="num">4,530億円</div><div class="label">24年预计爆表利润</div></div>
+      <div class="stat-card"><div class="num">No.2</div><div class="label">NAND闪存全球份额</div></div>
+      <div class="stat-card"><div class="num">0 DRAM</div><div class="label">只造一样东西的极端狂人</div></div>
+    </div>
+    <div style="margin-top:40px; font-size:20px; color:rgba(255,255,255,0.4);">理工硕士：半导体的过山车你敢坐吗？</div>
+  </div>
+</div>
+
+<!-- P02 -->
+<div class="page bg-tech">
+  <span class="page-num">02/18</span>
+  <div class="inner">
+    <div class="title">一句话认识 Kioxia</div>
+    <div class="subtitle">前东芝存储器：被剥离的闪存王国</div>
+    <div class="highlight mb-16" style="font-size:26px; line-height:1.6; padding:28px 32px;">
+      其实它就是发明了闪存芯片的那个老祖宗<br>现在只干一件事：把存储容量堆到人类极限
+    </div>
+    <div class="card"><div class="icon icon-cyan">K</div><div class="text">前身是“东芝存储”，2019年改名 Kioxia</div></div>
+    <div class="card"><div class="icon icon-cyan">◆</div><div class="text">被美国贝恩资本等老牌外资买下当了金主</div></div>
+    <div class="card"><div class="icon icon-cyan">▲</div><div class="text">总人数 12,000+，全都是靠硬核技术吃饭的人</div></div>
+    <div class="card"><div class="icon icon-cyan">★</div><div class="text">日本政府视为“经济安保命脉”，死保到底的企业</div></div>
+    <div class="highlight mt-auto" style="font-size:22px;">换句话说：只要日本还需要造半导体，它就一定不会死。</div>
+  </div>
+</div>
+
+<!-- P03 -->
+<div class="page bg-tech">
+  <span class="page-num">03/18</span>
+  <div class="inner">
+    <div class="title">它家到底卖什么？</div>
+    <div class="subtitle">极度专一：没有CPU没有DRAM，只有NAND Flash</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+      <div class="card"><div class="icon icon-blue">N</div><div class="text"><strong>3D 闪存晶圆</strong><br><span class="text-muted">比拼谁叠的层数多（200+层）</span></div></div>
+      <div class="card"><div class="icon icon-cyan">S</div><div class="text"><strong>数据中心 SSD</strong><br><span class="text-muted">最贵、利润最高的印钞机</span></div></div>
+      <div class="card"><div class="icon icon-silver">C</div><div class="text"><strong>Client SSD</strong><br><span class="text-muted">装在你电脑里的便宜固态硬盘</span></div></div>
+      <div class="card"><div class="icon icon-green">M</div><div class="text"><strong>Mobile 存储</strong><br><span class="text-muted">卖给手机厂商（比如苹果）</span></div></div>
+    </div>
+    <div class="highlight mt-auto">当下全是靠 AI 厂商疯狂采购数据中心 SSD 在赚取暴利</div>
+  </div>
+</div>
+
+<!-- P04 -->
+<div class="page bg-tech">
+  <span class="page-num">04/18</span>
+  <div class="inner">
+    <div class="title">惊心动魄的过山车式财务史</div>
+    <div class="subtitle">什么叫“硅周期(Silicon Cycle)”的暴打？</div>
+    <div class="two-col" style="flex:1;">
+      <div class="col col-red">
+        <h3 style="color:#ff6b6b;">2023 财年 (至暗时刻)</h3>
+        <ul>
+          <li>► 売上高：跌至 1兆 766 亿</li>
+          <li>► 利润：**血亏 2,540 亿**</li>
+          <li>► 惨况：手机电脑卖不动，芯片成死库存，疯狂减产保命。</li>
+        </ul>
+      </div>
+      <div class="col col-green">
+        <h3 style="color:#34c759;">2024 财年 (狂野反弹)</h3>
+        <ul>
+          <li>► 売上高：**飙升到 1兆 7,065 亿**</li>
+          <li>► 利润：**狂赚 4,530 亿**</li>
+          <li>► 盛况：AI 拉爆数据中心，SSD 卖脱销，瞬间扭亏为盈。</li>
+        </ul>
+      </div>
+    </div>
+    <div class="highlight mt-auto">财务起伏极大！但对于你要入职的这几年：正好是回血涨薪的大年！</div>
+  </div>
+</div>
+
+<!-- P05 -->
+<div class="page bg-tech">
+  <span class="page-num">05/18</span>
+  <div class="inner">
+    <div class="title">为何成为理科求职霸主？</div>
+    <div class="subtitle">钱给的多，技术够硬，出路极宽。</div>
+    <div class="card"><div class="icon icon-cyan">$</div><div class="text">刚刚公布的2026新卒起薪：直接**涨翻天**，震撼业界。</div></div>
+    <div class="card"><div class="icon icon-cyan">✔</div><div class="text">日本极少数能拿得出**世界顶尖重体量半导体产线**的公司。</div></div>
+    <div class="card"><div class="icon icon-cyan">★</div><div class="text">背靠国资补贴：政府刚拨款上千亿日元帮它盖厂。</div></div>
+    <div class="card"><div class="icon icon-cyan">►</div><div class="text">Kioxia出身的工艺和研发人，想跑路换东家，**属于食物链顶端**。</div></div>
+    <div class="highlight mt-auto">不怕苦、就想钻研搞钱的极客的天堂。</div>
+  </div>
+</div>
+
+<!-- P06 -->
+<div class="page bg-tech">
+  <span class="page-num">06/18</span>
+  <div class="inner">
+    <div class="title">应届生到底能干什么？</div>
+    <div class="subtitle">文商科基本靠边边，纯硬核机械/电子/材料主场</div>
+    <div style="font-size:22px; color:#8cd6ff; font-weight:700; margin-bottom:10px;">【核心岗位大赏】</div>
+    <div class="card"><div class="icon icon-cyan">★</div><div class="text"><strong>器件/工艺开发：</strong> 去和纳米级的晶圆刻蚀死磕，用新材料堆高存储层数。（重灾区&神仙区）</div></div>
+    <div class="card"><div class="icon icon-blue">R</div><div class="text"><strong>先端研究开发 (R&D)：</strong> 最多物理/材料大神的藏龙卧虎之地。</div></div>
+    <div class="card"><div class="icon icon-green">F</div><div class="text"><strong>系统/固件开发：</strong> 把一堆廉价闪存变废为宝，核心算法所在地。（码农集中营）</div></div>
+    <div class="card"><div class="icon icon-silver">P</div><div class="text"><strong>生产技术/量产管理：</strong> 保障日本和世界产能不断供的守夜人。</div></div>
+    <div class="highlight mt-auto">学磁性材料、半导体物理的同学，直接在这个平台发光发热。</div>
+  </div>
+</div>
+
+<!-- P07 -->
+<div class="page bg-tech">
+  <span class="page-num">07/18</span>
+  <div class="inner">
+    <div class="title">霸总式护盘：变态级初任给</div>
+    <div class="subtitle">让所有日本传统电子大厂瞬间破防。</div>
+    <div class="card"><div class="icon icon-silver">学</div><div class="text"><strong>学部卒 (本科)：</strong> 333,400 円/月</div></div>
+    <div class="card"><div class="icon icon-cyan">修</div><div class="text"><strong>修士了 (硕士)：</strong> <strong>364,900 円/月</strong><br><span class="text-muted">（全网对比：Sony约29万，松下约28万。它直接干到36万大关！）</span></div></div>
+    <div class="card"><div class="icon icon-blue">博</div><div class="text"><strong>博士了：</strong> 422,100 円/月</div></div>
+    <div class="card"><div class="icon icon-green">!</div><div class="text">另外全员发放基于当年业绩（对，就是那个暴雷或者暴利）的奖金。今年大热，奖金预期极度可怕。</div></div>
+    <div class="highlight mt-auto">想要吸引年轻人去造半导体，加钱就是唯一的真理。</div>
+  </div>
+</div>
+
+<!-- P08 -->
+<div class="page bg-tech">
+  <span class="page-num">08/18</span>
+  <div class="inner">
+    <div class="title">隐形的黄金福利</div>
+    <div class="subtitle">东芝老底子留下的终极堡垒——借上社宅</div>
+    <div class="card"><div class="icon icon-cyan">🏠</div><div class="text"><strong>超宽裕租房补贴：</strong> 虽然底薪已经离谱，它还有传统日企极其丰厚的“借上社宅”制度。</div></div>
+    <div class="card"><div class="icon icon-cyan">✔</div><div class="text">由于主基地在乡下（三重），超低的生活成本加上租房极低自己负担额...</div></div>
+    <div class="card"><div class="icon icon-cyan">💰</div><div class="text">导致**实际可支配收入、存钱速度远远快过在东京核心区**领同样薪水的人。</div></div>
+    <div class="highlight mt-auto">表面看是36万，实际的生活水平属于降维打击。</div>
+  </div>
+</div>
+
+<!-- P09 -->
+<div class="page bg-tech">
+  <span class="page-num">09/18</span>
+  <div class="inner">
+    <div class="title">选考的核心门槛到底在哪？</div>
+    <div class="subtitle">你以为有手就行？技术面直接扒了你一层皮</div>
+    <div class="card"><div class="icon icon-warn">!</div><div class="text"><strong>不要扯什么性格好、干劲足。</strong></div></div>
+    <div class="card"><div class="icon icon-cyan">►</div><div class="text">面试官全是身经百战的一线工程师。他们会极其刁钻地问你的研究：</div></div>
+    <div class="card"><div class="icon icon-cyan">Q</div><div class="text">“你做这个实验为什么失败？参数为什么这么设？”</div></div>
+    <div class="card"><div class="icon icon-cyan">Q</div><div class="text">“排查问题的物理模型怎么建立的？”</div></div>
+    <div class="card"><div class="icon icon-cyan">✔</div><div class="text">他们不仅是在找能听话懂事的入社者，是在找**有超强 Troubleshooting (解决疑难杂症) 逻辑闭环**的人。</div></div>
+    <div class="highlight mt-auto">你的研究如果造假或者经不起逻辑推敲，技术面绝对秒挂。</div>
+  </div>
+</div>
+
+<!-- P10 -->
+<div class="page bg-tech">
+  <span class="page-num">10/18</span>
+  <div class="inner">
+    <div class="title">最大的避雷针：隐形大坑</div>
+    <div class="subtitle">如果这一点受不了，直接别投（或者面试早晚露馅）</div>
+    <div class="highlight highlight-warn mb-16" style="padding:40px;">
+      【四日市的寂寞】
+    </div>
+    <div class="card" style="border-color:rgba(255,69,58,0.3);"><div class="icon icon-warn">✘</div><div class="text">只要你是报工艺、制造、材料等一线岗位，**你几乎95%跑不掉要去 三重县四日市市** 或者 岩手县。</div></div>
+    <div class="card" style="border-color:rgba(255,69,58,0.3);"><div class="icon icon-warn">✘</div><div class="text">这是巨大无比的工厂工业城，绝非东京的涉谷六本木。你受得了这种无聊平淡、每天和机台相伴的日子吗？</div></div>
+    <div class="card" style="border-color:rgba(255,69,58,0.3);"><div class="icon icon-warn">✘</div><div class="text">面试时候 HR 如果察觉你是个超级都市控、离不开东京，肯定给你刷掉（因为配属一定会闹不愉快）。</div></div>
+    <div class="highlight highlight-warn mt-auto">能不能甘当“小镇做题（芯片）家”，是最终考验。</div>
+  </div>
+</div>
+
+<!-- P11 -->
+<div class="page bg-tech">
+  <span class="page-num">11/18</span>
+  <div class="inner">
+    <div class="title">两极撕裂的企业文化</div>
+    <div class="subtitle">日式终身雇佣的温床 vs 外资资本的凶残利爪</div>
+    <div class="two-col" style="flex:1;">
+      <div class="col col-green">
+        <h3 style="color:#34c759;">老东芝的柔情</h3>
+        <ul>
+          <li>✔ 大家默认还是不能随便开除人的。</li>
+          <li>✔ 各种手当、休假给的极度痛快。</li>
+          <li>✔ 哪怕技术跟不上，也能温水煮。</li>
+        </ul>
+      </div>
+      <div class="col col-red">
+        <h3 style="color:#ff6b6b;">被逼出的狠狼</h3>
+        <ul>
+          <li>► 为了上市向投资人交卷，强推KPI。</li>
+          <li>► 研发部门卷层数卷到脑出血。</li>
+          <li>► 不讲武德的良率大比武压力。</li>
+        </ul>
+      </div>
+    </div>
+    <div class="highlight mt-auto">大公司病与危机感并存的诡异平衡。</div>
+  </div>
+</div>
+
+<!-- P12 -->
+<div class="page bg-tech">
+  <span class="page-num">12/18</span>
+  <div class="inner">
+    <div class="title">行业的致命伤：没有备胎</div>
+    <div class="subtitle">只有一个产品线，风波无限大</div>
+    <div class="card" style="border-color:rgba(255,69,58,0.3);"><div class="icon icon-warn">!</div><div class="text">**三星有**：NAND闪存 + DRAM内存 + 屏幕手机</div></div>
+    <div class="card" style="border-color:rgba(255,69,58,0.3);"><div class="icon icon-warn">!</div><div class="text">**SK Hynix 有**：NAND闪存 + 最无敌的 HBM 显存大卖</div></div>
+    <div class="card" style="border-color:rgba(140,214,255,0.3);"><div class="icon icon-cyan">►</div><div class="text">**Kioxia 只有：NAND闪存！**</div></div>
+    <div class="card"><div class="icon icon-silver">◆</div><div class="text">意味着当闪存市场过剩时，它没有任何业务能拿出来平摊亏损。这就是为什么它一年能从巨亏到巨赚的底层逻辑。你的命运完全绑定在这唯一晶圆上。</div></div>
+    <div class="highlight mt-auto">你进入的不是一个蓄水池，你进的是冲浪板。</div>
+  </div>
+</div>
+
+<!-- P13 -->
+<div class="page bg-tech">
+  <span class="page-num">13/18</span>
+  <div class="inner">
+    <div class="title">竞争格局惨烈</div>
+    <div class="subtitle">与韩国厂死斗，与老美(WD)又爱又恨的同床异梦</div>
+    <div class="card"><div class="icon icon-red">战</div><div class="text">头号玩家 三星 正在疯狂扩产降价想搞死其他人。</div></div>
+    <div class="card"><div class="icon icon-blue">战</div><div class="text">SK海力士 在吸收了Intel存储部后份额暴涨强势逼近。</div></div>
+    <div class="card"><div class="icon icon-purple">合</div><div class="text">Kioxia 为了活命，长达20年跟老对头 WD西部数据 在同一个厂房制造晶圆、买打折的老虎机（光刻机），既是队友又是生死对头。之前一度传出两家合并，但胎死腹中。</div></div>
+    <div class="highlight mt-auto">内部员工戏称：“反正这辈子也做不到第一了，也总死不了。”</div>
+  </div>
+</div>
+
+<!-- P14 -->
+<div class="page bg-tech">
+  <span class="page-num">14/18</span>
+  <div class="inner">
+    <div class="title">最强的后手：出口跳板无敌</div>
+    <div class="subtitle">半导体业界的“硬通货黄埔军校”</div>
+    <div class="card"><div class="icon icon-cyan">✔</div><div class="text">只要你在四日市干上个 3-5 年，摸过最最最先进的 3D NAND 成像流程。</div></div>
+    <div class="card"><div class="icon icon-cyan">✔</div><div class="text">你就会发现，所有同行（美光日本、韩国大厂）还有 上游设备商（AMAT、TEL、ASML）都在对你流口水。</div></div>
+    <div class="card"><div class="icon icon-cyan">✔</div><div class="text">因为能在百万平米的无人工厂里调试真家伙的人，全球不超过几万人。</div></div>
+    <div class="highlight mt-auto">去不了甲方可以去卖铲子的设备甲方，这履历比黄金还硬。</div>
+  </div>
+</div>
+
+<!-- P15 -->
+<div class="page bg-tech">
+  <span class="page-num">15/18</span>
+  <div class="inner">
+    <div class="title" style="color:#34c759;">如果你是以下类型，千万别放过它！</div>
+    <div class="subtitle">你就是 Kioxia 梦寐以求的神仙新卒</div>
+    <div class="card" style="border-color:rgba(52,199,89,0.3);"><div class="icon icon-green">✔</div><div class="text">物理控：研究过电磁场、自旋电子、先进材料的硬派学霸。</div></div>
+    <div class="card" style="border-color:rgba(52,199,89,0.3);"><div class="icon icon-green">✔</div><div class="text">数据狂：遇到实验失败不发火，而是能疯狂对着几百张散点图找相关性的数据猎人。</div></div>
+    <div class="card" style="border-color:rgba(52,199,89,0.3);"><div class="icon icon-green">✔</div><div class="text">搞钱党：我不管它在哪里，也不管什么周期，36万+底薪和巨量社宅补助给到位，让我去哪里搬砖都行。</div></div>
+    <div class="highlight highlight-green mt-auto">对口理工男/女在这里不仅能拿钱，还能拿命根级技术。</div>
+  </div>
+</div>
+
+<!-- P16 -->
+<div class="page bg-tech">
+  <span class="page-num">16/18</span>
+  <div class="inner">
+    <div class="title" style="color:#ff6b6b;">这些人，投之前三思</div>
+    <div class="subtitle">为了它哭，不值得</div>
+    <div class="card" style="border-color:rgba(255,69,58,0.3);"><div class="icon icon-warn">✘</div><div class="text">极度痛恨偏僻乡下，没法在没有大百货和居酒屋街区生活的人。</div></div>
+    <div class="card" style="border-color:rgba(255,69,58,0.3);"><div class="icon icon-warn">✘</div><div class="text">想要做“花里胡哨产品定义”的人（存储器是标准化商品，它只需要你造得更密、跑得更快，不需要你懂“用户体验设计”）。</div></div>
+    <div class="card" style="border-color:rgba(255,69,58,0.3);"><div class="icon icon-warn">✘</div><div class="text">心脏不好的人：眼冒金星看自己家产品价格一年暴跌40%一年暴涨80%，奖金忽高忽低。</div></div>
+    <div class="highlight highlight-warn mt-auto">大公司不一定意味着稳定的水波不兴。</div>
+  </div>
+</div>
+
+<!-- P17 -->
+<div class="page bg-tech">
+  <span class="page-num">17/18</span>
+  <div class="inner">
+    <div class="title">实战选考：上场前做这些准备</div>
+    <div class="subtitle">不要死记硬背公司简介，去搞懂底层真理</div>
+    <div class="action action-r"><strong>物理层搞懂</strong> ── NAND是怎么在一块硅片上打洞挖100层的？它的漏电和寿命瓶颈是什么？</div>
+    <div class="action action-y"><strong>行业八卦搞懂</strong> ── 他们和 WD 的合作模式到底好在哪？如果不合并，谁最急眼？</div>
+    <div class="action action-g"><strong>反复回炉自己的研究室PPT</strong> ── 你的每一个实验参数，能说出为什么用 A 材料而不用 B 材料吗？</div>
+    <div class="highlight mt-auto" style="font-size:22px;">这是对你科学素养的终极盘问舞台，别想混过去。</div>
+  </div>
+</div>
+
+<!-- P18 -->
+<div class="page bg-tech">
+  <span class="page-num">18/18</span>
+  <div class="inner" style="justify-content:center; align-items:center; text-align:center;">
+    <div class="final-box" style="padding:44px 48px; width:100%;">
+      <div style="font-size:24px; color:rgba(255,255,255,0.45); margin-bottom:12px;">推荐度</div>
+      <div class="rating">★ 强力推荐 (强推)</div>
+    </div>
+    <div style="margin-top:40px; font-size:26px; line-height:2; color:rgba(255,255,255,0.85);">
+      对于特定专业的你来说<br>
+      <span style="color:#8cd6ff; font-weight:900;">这其实是一家“保底下限很高，而且天生带着加点神器”的巨头</span>
+    </div>
+    <div style="margin-top:32px; font-size:24px; line-height:2; color:rgba(255,255,255,0.6);">
+      抛开四日市地理偏远的吐槽点不论，<br>
+      你只要在这里扎根5年，<br>
+      全球的半导体硬件厂商大门永远对你开着。
+    </div>
+    <div style="margin-top:42px; font-size:22px; color:#8cd6ff; font-weight:700;">
+      更别提，它现在为了抢人，开出的起薪真的是诚意拉满了。
+    </div>
+    <div style="margin-top:auto; padding-top:32px; font-size:18px; color:rgba(255,255,255,0.3);">
+      收藏这篇笔记 &#183; 关注老牌日企测评 &#183; 半导体打工人报团取暖
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
